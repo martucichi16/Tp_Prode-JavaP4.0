@@ -1,15 +1,13 @@
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Scanner;
-
 public class Partido {
+
+    // ATRIBUTOS
     private int idPartido;
     private String equipo1;
     private String equipo2;
     private int golesEquipo1;
     private int golesEquipo2;
 
+    // CONSTRUCTOR
     public Partido(int idPartido, String equipo1, String equipo2, int golesEquipo1, int golesEquipo2) {
         this.idPartido = idPartido;
         this.equipo1 = equipo1;
@@ -18,6 +16,7 @@ public class Partido {
         this.golesEquipo2 = golesEquipo2;
     }
 
+    // GETTERs y SETTERs
     public String getEquipo1() {
         return equipo1;
     }
@@ -58,6 +57,7 @@ public class Partido {
         this.idPartido = idPartido;
     }
 
+    // MÉTODO PROPIO
     public int resultado() {
         if (golesEquipo1 == golesEquipo2) {
             return 0;

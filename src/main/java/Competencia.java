@@ -1,19 +1,20 @@
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.SQLOutput;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class Competencia  {
 
+    // ATRIBUTOS
     private HashMap<Integer, Participante> participantes;
 
+    // CONSTRUCTOR
     public Competencia() {
-        this.participantes = new HashMap<Integer, Participante>();
+        this.participantes = new HashMap<>();
     }
 
+    // GETTER Y SETTER
     public HashMap<Integer, Participante> getParticipantes() {
         return participantes;
     }
@@ -22,13 +23,13 @@ public class Competencia  {
         this.participantes = participantes;
     }
 
-    // public void ordenarPorPuntos() {}
-
+    // MÉTODOS PROPIOS
     public void agregarParticipante(Participante participante) {
         this.participantes.put(participante.getDocumento(), participante);
     }
 
-    public void lecturaPronosticos(String nombreArchivo) throws IOException {
+    // MÉTODO PARA LEER ARCHIVOS DE TEXTO
+    /* public void lecturaPronosticos(String nombreArchivo) throws IOException {
 
         Path archivoPronosticos = Paths.get(nombreArchivo);
         Scanner lectorPronosticos = new Scanner(archivoPronosticos);
@@ -84,6 +85,51 @@ public class Competencia  {
 
             this.agregarParticipante(jugador);
 
+        }
+    }
+
+     */
+
+    public void leerTablaPronosticos(Statement st, String nombreTabla) throws SQLException {
+
+        // Armo lista de documentos sin repetir
+        ResultSet rsDocumento = st.executeQuery("SELECT DISTINCT documento FROM " +
+                nombreTabla);
+
+        ArrayList<Integer> documentos = new ArrayList<>();
+        while (rsDocumento.next()) {
+            documentos.add(rsDocumento.getInt("documento"));
+        }
+
+
+        // Traigo los registros según documento y creo al participante junto sus apuestas
+        for (int documento:documentos) {
+            ArrayList<Partido> apuestas = new ArrayList<>();
+
+            ResultSet rsApuestas = st.executeQuery("SELECT * FROM pronosticos WHERE documento=" +
+                    documento);
+
+            String nombre = "";
+            String apellido = "";
+
+            while(rsApuestas.next()) {
+                nombre = rsApuestas.getString("nombre");
+                apellido = rsApuestas.getString("apellido");
+                int idPartido = rsApuestas.getInt("idPartido");
+                String equipo1 = rsApuestas.getString("equipo1");
+                String equipo2 = rsApuestas.getString("equipo2");
+                int golesEquipo1 = rsApuestas.getInt("golesEquipo1");
+                int golesEquipo2 = rsApuestas.getInt("golesEquipo2");
+
+                Partido apuesta = new Partido(idPartido, equipo1, equipo2, golesEquipo1, golesEquipo2);
+                apuestas.add(apuesta);
+
+                apuestas.add(apuesta);
+            }
+
+            Participante jugador = new Participante(documento, nombre, apellido, apuestas);
+
+            this.agregarParticipante(jugador);
         }
     }
 

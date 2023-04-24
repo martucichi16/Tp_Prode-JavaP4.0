@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 
 public class Participante {
+
+    // ATRIBUTOS
     private int documento;
     private String nombre;
     private String apellido;
@@ -8,6 +10,7 @@ public class Participante {
     private ArrayList<Partido> apuestas;
     private int puntos = 0;
 
+    // CONSTRUCTOR
     public Participante(int documento, String nombre, String apellido, ArrayList<Partido> apuestas) {
         this.documento = documento;
         this.nombre = nombre;
@@ -15,6 +18,7 @@ public class Participante {
         this.apuestas = apuestas;
     }
 
+    // GETTERs y SETTERs
     public int getDocumento() {
         return documento;
     }
@@ -55,6 +59,7 @@ public class Participante {
         this.puntos = puntos;
     }
 
+    // MÉTODOS PROPIOS
     public void sumarPunto() {
         this.puntos = puntos + 1;
     }

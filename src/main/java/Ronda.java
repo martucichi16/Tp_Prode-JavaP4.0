@@ -1,21 +1,17 @@
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.sql.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Ronda {
 
+    // ATRIBUTOS
     private ArrayList<Partido> partidos;
 
+    // CONSTRUCTOR
     public Ronda() {
-        partidos = new ArrayList<Partido>();
+        partidos = new ArrayList<>();
     }
 
-    public Ronda(ArrayList<Partido> partidos) {
-        this.partidos = partidos;
-    }
-
+    // GETTER Y SETTER
     public ArrayList<Partido> getPartidos() {
         return partidos;
     }
@@ -24,10 +20,13 @@ public class Ronda {
         this.partidos = partidos;
     }
 
+    // MÉTODOS PROPIOS
     public void agregarPartido(Partido partido) {
         this.partidos.add(partido);
     }
 
+    // MÉTODO PARA LEER ARCHIVOS DE TEXTO
+    /*
     public void lecturaPartidos(String nombreArchivo) throws IOException {
         Path archivoPartidos = Paths.get(nombreArchivo);
         Scanner lectorPartidos = new Scanner(archivoPartidos);
@@ -48,5 +47,25 @@ public class Ronda {
         }
 
         lectorPartidos.close();
+    }
+     */
+
+    public void leerTablaPartidos(Statement st, String nombreTabla) throws SQLException {
+        ResultSet rs = st.executeQuery("SELECT * FROM " + nombreTabla);
+
+        while(rs.next()) {
+            int idPartido = rs.getInt("idPartido");
+            String primerEquipo = rs.getString("equipo1");
+            String segundoEquipo = rs.getString("equipo2");
+            int golesPrimerEquipo = rs.getInt("golesEquipo1");
+            int golesSegundoEquipo = rs.getInt("golesEquipo2");
+
+            Partido partido = new Partido(idPartido, primerEquipo, segundoEquipo, golesPrimerEquipo,
+                    golesSegundoEquipo);
+
+            this.agregarPartido(partido);
+        }
+
+        rs.close();
     }
 }

@@ -1,17 +1,21 @@
 import java.util.HashMap;
-import java.util.Collections;
+// import java.util.Collections;
 
 public class Prode {
+
+    // ATRIBUTOS
     private Ronda ronda;
     private Competencia competencia;
 
     private int documentoGanador;
 
+    // CONSTRUCTOR
     public Prode(Ronda partidos, Competencia participantes) {
         this.ronda = partidos;
         this.competencia = participantes;
     }
 
+    // GETTERs y SETTERs
     public Ronda getRonda() {
         return ronda;
     }
@@ -28,6 +32,7 @@ public class Prode {
         this.competencia = competencia;
     }
 
+    // MÉTODOS PROPIOS
     private void calcularPuntos() {
         for (Participante jugador:competencia.getParticipantes().values()) {
             jugador.calcularPuntos(ronda);
@@ -44,7 +49,14 @@ public class Prode {
             puntaje.put(participante.getDocumento(), participante.getPuntos());
         }
 
-        int maximoPuntaje = Collections.max(puntaje.values());
+        // int maximoPuntaje = Collections.max(puntaje.values());
+        int maximoPuntaje = 0;
+
+        for (Integer punto:puntaje.values()) {
+            if (punto > maximoPuntaje) {
+                maximoPuntaje = punto;
+            }
+        }
 
         for (Participante participante : competencia.getParticipantes().values()) {
             if (participante.getPuntos() == maximoPuntaje) {
