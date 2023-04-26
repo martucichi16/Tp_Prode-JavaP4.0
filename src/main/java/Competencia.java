@@ -29,7 +29,8 @@ public class Competencia  {
     }
 
     // MÉTODO PARA LEER ARCHIVOS DE TEXTO
-    /* public void lecturaPronosticos(String nombreArchivo) throws IOException {
+    /*
+    public void lecturaPronosticos(String nombreArchivo) throws IOException {
 
         Path archivoPronosticos = Paths.get(nombreArchivo);
         Scanner lectorPronosticos = new Scanner(archivoPronosticos);
@@ -87,7 +88,6 @@ public class Competencia  {
 
         }
     }
-
      */
 
     public void leerTablaPronosticos(Statement st, String nombreTabla) throws SQLException {
@@ -122,7 +122,6 @@ public class Competencia  {
                 int golesEquipo2 = rsApuestas.getInt("golesEquipo2");
 
                 Partido apuesta = new Partido(idPartido, equipo1, equipo2, golesEquipo1, golesEquipo2);
-                apuestas.add(apuesta);
 
                 apuestas.add(apuesta);
             }
@@ -130,6 +129,7 @@ public class Competencia  {
             Participante jugador = new Participante(documento, nombre, apellido, apuestas);
 
             this.agregarParticipante(jugador);
+
         }
     }
 
@@ -138,7 +138,7 @@ public class Competencia  {
         System.out.println("LISTA DE PARTICIPANTES DEL PRODE:");
 
         for (Participante persona:participantes.values()) {
-            System.out.printf("%16s%s%s%s%s%s", persona.nombreCompleto(), "(", persona.getDocumento(),
+            System.out.printf("%-20s%s%s%s%s%s", persona.nombreCompleto(), "(", persona.getDocumento(),
                     "): ", persona.getPuntos(), " puntos\n");
         }
     }

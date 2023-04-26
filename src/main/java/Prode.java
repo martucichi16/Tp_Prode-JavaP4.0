@@ -1,3 +1,9 @@
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 // import java.util.Collections;
 
@@ -74,8 +80,9 @@ public class Prode {
         System.out.println("RESULTADOS DE LA RONDA:");
 
         for (Partido partido:ronda.getPartidos()) {
-            System.out.printf("%12s%s%s%s%s%s%s%s", partido.getEquipo1(), " | ", partido.getGolesEquipo1(),
-                    " - ", partido.getGolesEquipo2(), " | ", partido.getEquipo2(), "\n");
+            System.out.printf("%12s%s%s%s%s%s%-12s%5s%12s%9s", partido.getEquipo1(), " | ", partido.getGolesEquipo1(),
+                    " - ", partido.getGolesEquipo2(), " | ", partido.getEquipo2(), " --> ",
+                    partido.getGanador(), "\n");
         }
 
         System.out.println("\n");
@@ -84,4 +91,18 @@ public class Prode {
     public void mostrarGanador() {
         System.out.println("\nGANADOR: " + this.competencia.getParticipantes().get(documentoGanador).nombreCompleto());
     }
+
+    public void verJSON () throws JsonProcessingException {
+        ObjectMapper om = new ObjectMapper();
+        System.out.println(om.writerWithDefaultPrettyPrinter().writeValueAsString(this));
+    }
+
+    // Guardaría el JSON en un archivo para poder exportarlo y compartirlo
+    public void exportarJSON () throws IOException {
+        Path archivoJSON = Paths.get("Prode.json");
+
+        ObjectMapper om = new ObjectMapper();
+        om.writerWithDefaultPrettyPrinter().writeValue(archivoJSON.toFile(), this);
+    }
+
 }

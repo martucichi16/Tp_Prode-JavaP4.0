@@ -69,4 +69,16 @@ public class Partido {
             }
         }
     }
+
+    public String getGanador() {
+        if (golesEquipo1 == golesEquipo2) {
+            return "EMPATE";
+        } else {
+            if (golesEquipo1 > golesEquipo2) {
+                return equipo1;
+            } else {
+                return equipo2;
+            }
+        }
+    }
 }

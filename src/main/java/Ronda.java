@@ -48,7 +48,9 @@ public class Ronda {
 
         lectorPartidos.close();
     }
+
      */
+
 
     public void leerTablaPartidos(Statement st, String nombreTabla) throws SQLException {
         ResultSet rs = st.executeQuery("SELECT * FROM " + nombreTabla);
@@ -67,5 +69,6 @@ public class Ronda {
         }
 
         rs.close();
+
     }
 }
