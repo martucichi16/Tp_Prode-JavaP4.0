@@ -75,19 +75,6 @@ public class Prode {
         return docuGanador;
     }
 
-
-    public void imprimirPartidos() {
-        System.out.println("RESULTADOS DE LA RONDA:");
-
-        for (Partido partido:ronda.getPartidos()) {
-            System.out.printf("%12s%s%s%s%s%s%-12s%5s%12s%9s", partido.getEquipo1(), " | ", partido.getGolesEquipo1(),
-                    " - ", partido.getGolesEquipo2(), " | ", partido.getEquipo2(), " --> ",
-                    partido.getGanador(), "\n");
-        }
-
-        System.out.println("\n");
-    }
-
     public void mostrarGanador() {
         System.out.println("\nGANADOR: " + this.competencia.getParticipantes().get(documentoGanador).nombreCompleto());
     }

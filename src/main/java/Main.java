@@ -47,7 +47,7 @@ public class Main {
         // ---------------------------------------------------------------------------------------------
 
         // CONSOLA
-        prode.imprimirPartidos();
+        partidos.imprimirPartidos();
         competencia.mostrarParticipantes();
         prode.mostrarGanador();
 

@@ -71,4 +71,16 @@ public class Ronda {
         rs.close();
 
     }
+
+    public void imprimirPartidos() {
+        System.out.println("RESULTADOS DE LA RONDA:");
+
+        for (Partido partido:partidos) {
+            System.out.printf("%12s%s%s%s%s%s%-12s%5s%12s%9s", partido.getEquipo1(), " | ", partido.getGolesEquipo1(),
+                    " - ", partido.getGolesEquipo2(), " | ", partido.getEquipo2(), " --> ",
+                    partido.getGanador(), "\n");
+        }
+
+        System.out.println("\n");
+    }
 }
